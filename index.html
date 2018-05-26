@@ -47,37 +47,62 @@
   <div id="events" class="content-event mdc-top-app-bar--fixed-adjust mdc-typography">
     <div class="my-card mdc-card">
       <h1 align="center">Add an Event</h1>
-        <form id = "form" action="/addevent" method = "post" class="form-event">
-          <div class="mdc-text-field text-field mdc-text-field--upgraded" style = "margin-top: 0px; display:inline-block">
-              <input type="text" name="title" class="mdc-text-field__input" placeholder="title">
-              <div class="mdc-line-ripple"></div>
-          </div>
-          <div class="mdc-text-field text-field mdc-text-field--upgraded" style = "display:inline-block;">
-            <input type="text" name="sdate" class="mdc-text-field__input" placeholder="start date">
-            <div class="mdc-line-ripple"></div>
-          </div>
-          <div class="mdc-text-field text-field mdc-text-field--upgraded">
-            <input type="text" name="edate" class="mdc-text-field__input" placeholder="end date">
-            <div class="mdc-line-ripple"></div>
-          </div>
-          <div class="mdc-text-field text-field mdc-text-field--upgraded">
-            <input type="text" name="description" class="mdc-text-field__input" placeholder="description">
-            <div class="mdc-line-ripple"></div>
-          </div>
-          <div class="mdc-text-field text-field mdc-text-field--upgraded" style="margin-bottom: 20px;">
-            <input type="text" name="type" class="mdc-text-field__input" placeholder="event type">
-            <div class="mdc-line-ripple"></div>
-          </div>
-          <button class="mdc-button" type="submit" id ="event-submit">
-              Submit
-          </button>
-        </form>
+      <form id = "event-form" action="/addevent" method = "post">
+        <div class="mdc-text-field text-field mdc-text-field--upgraded" style = "margin-top: 0px; display:inline-block">
+          <input type="text" name="title" class="mdc-text-field__input" placeholder="title">
+          <div class="mdc-line-ripple"></div>
+        </div>
+        <div class="mdc-text-field text-field mdc-text-field--upgraded" style = "display:inline-block;">
+          <input type="text" name="sdate" class="mdc-text-field__input" placeholder="start date">
+          <div class="mdc-line-ripple"></div>
+        </div>
+        <div class="mdc-text-field text-field mdc-text-field--upgraded">
+          <input type="text" name="edate" class="mdc-text-field__input" placeholder="end date">
+          <div class="mdc-line-ripple"></div>
+        </div>
+        <div class="mdc-text-field text-field mdc-text-field--upgraded">
+          <input type="text" name="description" class="mdc-text-field__input" placeholder="event description">
+          <div class="mdc-line-ripple"></div>
+        </div>
+        <div class="mdc-text-field text-field mdc-text-field--upgraded" style="margin-bottom: 20px;">
+          <input type="text" name="type" class="mdc-text-field__input" placeholder="event type">
+          <div class="mdc-line-ripple"></div>
+        </div>
+        <button class="mdc-button" type="submit" id ="event-submit">
+            Submit
+        </button>
+      </form>
     </div>
   </div>
 
   <div id="products" class="content-product mdc-top-app-bar--fixed-adjust mdc-typography">
       <div class="my-card mdc-card">
-          Add a Product
+        <h1 align="center">Add a Product</h1>
+        <form id = "product-form" action="/addproduct" method = "post">
+          <div class="mdc-text-field text-field mdc-text-field--upgraded" style = "margin-top: 0px; display:inline-block">
+            <input type="text" name="name" class="mdc-text-field__input" placeholder="product name">
+            <div class="mdc-line-ripple"></div>
+          </div>
+          <div class="mdc-text-field text-field mdc-text-field--upgraded" style = "display:inline-block;">
+            <input type="text" name="description" class="mdc-text-field__input" placeholder="product description">
+            <div class="mdc-line-ripple"></div>
+          </div>
+          <div class="mdc-text-field text-field mdc-text-field--upgraded">
+            <input type="text" name="price" class="mdc-text-field__input" placeholder="product price">
+            <div class="mdc-line-ripple"></div>
+          </div>
+          <div class="mdc-text-field text-field mdc-text-field--upgraded">
+            <input type="text" name="dims" class="mdc-text-field__input" placeholder="product dimensions">
+            <div class="mdc-line-ripple"></div>
+          </div>
+          <div class="mdc-text-field text-field mdc-text-field--upgraded" style="margin-bottom: 20px;">
+            <input type="text" name="type" class="mdc-text-field__input" placeholder="product type">
+            <div class="mdc-line-ripple"></div>
+          </div>
+          <button class="mdc-button" type="submit" id ="product-submit">
+              Submit
+          </button>
+        </form>
       </div>
   </div>
   
@@ -135,10 +160,6 @@
       });
     });
 
-    $("#form").submit(function(eventObj){
-        return true;
-    });
-
     function showDiv2() {
       document.querySelector('.content-event').style.display="none";
       document.querySelector('.content-product').style.display="block";
@@ -148,6 +169,14 @@
       document.querySelector('.content-event').style.display="block";
       document.querySelector('.content-product').style.display="none";
     }  
+
+    $("#event-form").submit(function(eventObj){
+        return true;
+    });
+
+    $("#product-form").submit(function(eventObj){
+        return true;
+    });
   </script>
 </body>
 </html>

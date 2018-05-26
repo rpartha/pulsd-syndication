@@ -22,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/addevent', function(req, res){
 	const id = crypto.randomBytes(5).toString("hex");
 
+	var today = new Date();
+	//need to add date+time to figure out which were added in the past hours
 	var params = {
         TableName: "Events",
         Item: {
@@ -30,17 +32,49 @@ app.post('/addevent', function(req, res){
 			"start_date":  req.body.sdate,
 			"end_date": req.body.edate,
 			"description": req.body.description,
-			"event_type": req.body.type
+			"event_type": req.body.type,
+			"datetime_added": today.toISOString()
         }
 	};
 	
 	docClient.put(params, function(err, results) {
 		if(err){
-			console.error("Unable to add movie", req.body.title, ". Error JSON:", JSON.stringify(err, null, 2));
+			console.error("Unable to add event", req.body.title, ". Error JSON:", JSON.stringify(err, null, 2));
 		}
 
 		else{
 			console.log("PutItem succeeded: ", req.body.title);
+		}
+		
+	});
+});
+
+app.post('/addproduct', function(req, res){
+	const id = crypto.randomBytes(6).toString("hex");
+
+	var today = new Date();
+
+	//need to add date+time to figure out which were added in the past hours
+	var params = {
+        TableName: "Products",
+        Item: {
+            "model_number":  id,
+            "title": req.body.name,
+			"product_description":  req.body.description,
+			"product_price": parseFloat(req.body.price),
+			"product_dimensions": req.body.dims,
+			"product_type": req.body.type,
+			"datetime_added": today.toISOString()
+        }
+	};
+	
+	docClient.put(params, function(err, results) {
+		if(err){
+			console.error("Unable to add event", req.body.name, ". Error JSON:", JSON.stringify(err, null, 2));
+		}
+
+		else{
+			console.log("PutItem succeeded: ", req.body.name);
 		}
 		
 	});
