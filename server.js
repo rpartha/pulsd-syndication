@@ -1,0 +1,53 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const path = require('path');
+const request = require('request');
+
+var app = express();
+
+var AWS = require("aws-sdk");
+
+AWS.config.update({
+  region: "us-east-2",
+  endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+app.use(express.static('.'));
+
+app.use(bodyParser.urlencoded({ extended: true })); 
+
+app.post('/addevent', function(req, res){
+	const id = crypto.randomBytes(5).toString("hex");
+
+	var params = {
+        TableName: "Events",
+        Item: {
+            "ID":  id,
+            "title": req.body.title,
+			"start_date":  req.body.sdate,
+			"end_date": req.body.edate,
+			"description": req.body.description,
+			"event_type": req.body.type
+        }
+	};
+	
+	docClient.put(params, function(err, results) {
+		if(err){
+			console.error("Unable to add movie", req.body.title, ". Error JSON:", JSON.stringify(err, null, 2));
+		}
+
+		else{
+			console.log("PutItem succeeded: ", req.body.title);
+		}
+		
+	});
+});
+
+const port = process.env.PORT || 100;
+
+app.listen(port, function(){
+	console.log("pulsd_syndication_app listening on port " + port);
+});
